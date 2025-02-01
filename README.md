@@ -14,9 +14,9 @@ The **proxy application** intercepts API calls and appends the required API key 
 │ (requests)    │        │ (forwards)    │        │ (e.g., SAM.gov) │
 └───────────────┘        └───────────────┘        └─────────────────┘
 ```
-- This architecture utlizies 2x of Cloud.gov's managed Python buildpack and **NOT DOCKER CONTAINERS**.
-  - This means there is no need to a container build script or pipeline, nor do we need a docker file.
-  - Version of python and other libraries in buildpacks are updated when they are restarted to ensure we the most recent version of python.
+- This project utlizies Cloud.gov python buildpack and **NOT DOCKER CONTAINERS**.
+  - This means there is no need to have a container build step in a deploy script or pipeline, nor do we need a docker file.
+  - Version of python and other libraries in Cloud.gov buildpacks are updated when they are restarted to ensure we the most recent version of python.
 - **Encrypted Container-to-Container Communication**: **This setup utlizies the automatic C2C network traffic encryption provided by Cloud.gov's Envoy proxy over port 61443**
   - As detailed in: https://cloud.gov/docs/management/container-to-container/
 - **Test Client**: Python buildpack with nothing runnin it it but a forever sleep to keep it up.
@@ -96,6 +96,11 @@ This request:
 | -------------- | ------------------ | --------------------------------------------- |
 | `API_ENDPOINT` | The base API URL   | `https://api.sam.gov/opportunities/v2/search` |
 | `API_KEY`      | The secret API key | `your-secret-key`                             |
+
+
+## Expected Results
+
+![image](https://github.com/user-attachments/assets/736e8891-df39-409d-9dcf-273e67818063)
 
 ## 🛠️ Troubleshooting
 
