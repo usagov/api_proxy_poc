@@ -1,0 +1,32 @@
+# Dont commit temp database.
+db.sqlite3
+*.sql
+
+# Dont commit temp / system files.
+.DS_Store
+
+# Dont commit python cache files.
+__pycache__
+
+# Dont commit data folder used by docker.
+.data
+backups/*
+
+# Dont commit IDE / Editor settings.
+.vscode
+.idea
+
+# Dont commit venv.
+.venv
+venv
+
+# Dont commit Logstash local work.
+devops/logstash
+
+.env
+node_modules
+app/settings.py.local
+backups
+
+# Dont commit other cache directories.
+.dccache

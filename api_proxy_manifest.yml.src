@@ -1,0 +1,12 @@
+applications:
+  - name: api-proxy
+    memory: 256M
+    instances: 1
+    buildpacks:
+      - python_buildpack
+    routes:
+    - route: api-proxy.apps.internal
+    - route: api-proxy.app.cloud.gov
+    env:
+      API_ENDPOINT: ${API_ENDPOINT}
+      API_KEY: ${API_KEY}
