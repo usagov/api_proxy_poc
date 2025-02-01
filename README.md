@@ -2,7 +2,7 @@
 
 ## 📌 Overview
 
-This project is a **Flask-based API Proxy** designed to securely **relay API requests** while **hiding API credentials** from users. It enables a **test client** to send API queries via the proxy, ensuring credentials remain **server-side only**.
+This project is a **Flask-based API Proxy** designed to securely **relay API requests** while **hiding API credentials** from users. It enables a **test client** to send API queries via the proxy, ensuring credentials remain **server-side only, meaning, ONLY on the api-proxy buildpack, NOT the client-test, it NEVER has credentials**.
 
 The **proxy application** intercepts API calls and appends the required API key **before forwarding requests** to the external API (e.g., `SAM.gov`). It is deployed using **Cloud Foundry** on **Cloud.gov**.
 
