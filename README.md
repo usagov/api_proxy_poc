@@ -51,6 +51,11 @@ To deploy the API Proxy & Test Client, run:
 - It **creates routes**, **deploys applications**, and **sets network policies**.
 - The expected output:
   ```plaintext
+  🔍 You are deploying to:
+     🏢 Org:              sandbox-gsa
+     📌 Space:          xavier.metichecchia
+  ⚠️  Please verify this is the correct target before proceeding.
+  ❓ Proceed with deployment? (Y/N): Y
   ✅ Configuration prepared
   🔄 Checking routes...
   ✅ All required routes already exist.
