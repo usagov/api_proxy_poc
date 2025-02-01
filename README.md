@@ -14,7 +14,8 @@ The **proxy application** intercepts API calls and appends the required API key 
 │ (requests)    │        │ (forwards)    │        │ (e.g., SAM.gov) │
 └───────────────┘        └───────────────┘        └─────────────────┘
 ```
-
+- **Encrypted Container-to-Container Communication**: **This setup utlizies the automatic C2C network traffic encryption provided by Cloud.gov's Envoy proxy over port 61443**
+  - As detailed in: https://cloud.gov/docs/management/container-to-container/
 - **Test Client**: Makes API requests but **lacks direct API credentials**.
 - **API Proxy**: Relays requests, appends `API_KEY`, and forwards them securely.
 - **External API**: The **actual API** (e.g., `SAM.gov`) that receives requests.
