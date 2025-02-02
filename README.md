@@ -14,22 +14,22 @@ The **proxy application** intercepts API calls and appends the required API key 
 │ (requests)    │        │ (forwards)    │        │ (e.g., SAM.gov) │
 └───────────────┘        └───────────────┘        └─────────────────┘
 ```
-- This project utlizies Cloud.gov python buildpack and **NOT DOCKER CONTAINERS**.
-  - This means there is no need to have a container build step in a deploy script or pipeline, nor do we need a docker file.
-  - Version of python and other libraries in Cloud.gov buildpacks are updated when they are restarted to ensure we the most recent version of python.
-- **Encrypted Container-to-Container Communication**: **This setup utlizies the automatic C2C network traffic encryption provided by Cloud.gov's Envoy proxy over port 61443**
+- This project utilizes Cloud.gov Python buildpack and **NOT DOCKER CONTAINERS**.
+  - This means there is no need to have a container build step in a deploy script or pipeline, nor do we need a Dockerfile.
+  - Version of Python and other libraries in Cloud.gov buildpacks are updated upon restart to ensure we have the most recent version of Python.
+- **Encrypted Container-to-Container Communication**: **This setup utilizes the automatic C2C network traffic encryption provided by Cloud.gov's Envoy proxy over port 61443**
   - As detailed in: https://cloud.gov/docs/management/container-to-container/
-- **Test Client**: Python buildpack with nothing runnin it it but a forever sleep to keep it up.
+- **Test Client**: Python buildpack with nothing running in it but a forever sleep to keep it up.
   - Makes API requests but **lacks direct API credentials**.
 - **API Proxy**: Relays requests, checks formatting, and appends `API_KEY`, and forwards them securely.
 - **External API**: The **actual API** (e.g., `SAM.gov`) that receives requests.
-  - Code will have to be added to properly handle different API's that may have different formatting requirements but the code in place can be used as a good template.
+  - Code will have to be added to properly handle different APIs that may have different formatting requirements but the code in place can be used as a good template.
 
 ## 🚀 Deployment
 
 ### **1️⃣ Prerequisites**
 
-- Cloud Foundry CLI (`cf`) installed
+- Cloud Foundry CLI (`cf`) must be installed
 - Access to **Cloud.gov** environment
 - A Cloud.gov **org & space targeted** (`cf login && cf target`)
 - You **MUST** manually export Environment variables:
@@ -118,7 +118,7 @@ If empty, export it:
 export API_KEY="your-secret-key"
 ```
 
-### **❌ Cloud Foundry Org/Space Not Set**
+### **❌ ❌ Cloud Foundry Org/Space Not Set**
 
 Run:
 
@@ -128,7 +128,7 @@ cf target
 
 Ensure it matches the expected **org & space**.
 
-### **❌ Deployment Fails**
+### **❌ ❌ Deployment Fails**
 
 Try redeploying:
 
@@ -137,7 +137,7 @@ cf push -f api_proxy_manifest.yml
 cf push -f test_client_manifest.yml
 ```
 
-### **❌ Proxy Returns 404**
+### **❌ ❌ Proxy Returns 404**
 
 - Confirm the request URL is correct.
 - Ensure `api-proxy` is running:
