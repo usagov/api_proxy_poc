@@ -51,10 +51,10 @@ function ensure_route {
 
 # Ensure routes exist before deployment
 echo "🔄 Checking routes..."
-ensure_route "apps.internal" "api-proxy"
-ensure_route "app.cloud.gov" "api-proxy"
-ensure_route "apps.internal" "test-client"
-ensure_route "app.cloud.gov" "test-client"
+ensure_route "apps.internal" "api-proxy-develop"
+ensure_route "app.cloud.gov" "api-proxy-develop"
+ensure_route "apps.internal" "test-client-develop"
+ensure_route "app.cloud.gov" "test-client-develop"
 
 # If any routes were created, display them in a single message
 if [[ ${#new_routes[@]} -gt 0 ]]; then
@@ -83,8 +83,8 @@ fi
 
 # Add network policies
 echo "🔒 Configuring network policies..."
-if cf add-network-policy api-proxy test-client --protocol tcp --port 61443 > /dev/null 2>&1 \
-   && cf add-network-policy test-client api-proxy --protocol tcp --port 61443 > /dev/null 2>&1; then
+if cf add-network-policy api-proxy-develop test-client-develop --protocol tcp --port 61443 > /dev/null 2>&1 \
+   && cf add-network-policy test-client-develop api-proxy-develop --protocol tcp --port 61443 > /dev/null 2>&1; then
   echo "✅ Network policies added."
 else
   echo "❌ Failed to configure network policies."

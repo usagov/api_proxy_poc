@@ -1,5 +1,5 @@
 applications:
-  - name: test-client
+  - name: test-client-develop
     memory: 128M
     instances: 1
     buildpacks:
@@ -7,5 +7,5 @@ applications:
     command: sleep infinity # Keeps the instance running for manual testing
     health-check-type: process # Prevents Cloud Foundry from expecting an open port
     routes:
-      - route: test-client.apps.internal
-      - route: test-client.app.cloud.gov
+      - route: test-client-develop.apps.internal
+      - route: test-client-develop.app.cloud.gov
