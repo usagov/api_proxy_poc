@@ -6,6 +6,10 @@ This project is a **Flask-based API Proxy** designed to securely **relay API req
 
 The **proxy application** intercepts API calls and appends the required API key **before forwarding requests** to the external API (e.g., `SAM.gov`). It is deployed using **Cloud Foundry** on **Cloud.gov**.
 
+This project was tested with **NASA.gov's** open **APOD API**, as well as **SAM.gov's** API.
+
+**Sign up for an instant NASA API Key at https://api.nasa.gov, export variables like example below.**
+
 ## 🏗️ Architecture
 
 ```
@@ -41,10 +45,21 @@ The **proxy application** intercepts API calls and appends the required API key 
 
 Set environment variables:
 
+To test with NASA's API Sign up for a key: https://api.nasa.gov/
+
+```bash
+export API_ENDPOINT="https://api.nasa.gov/planetary/apod"
+export API_KEY="your-secret-key"
+```
+
+To test with SAM.gov (you may need some additional permissions you might not be able to request that I have)
+
 ```bash
 export API_ENDPOINT="https://api.sam.gov/opportunities/v2/search"
 export API_KEY="your-secret-key"
 ```
+
+Please try the API of your choice and report back!
 
 ### **3️⃣ Deploy**
 
