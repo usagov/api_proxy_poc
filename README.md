@@ -4,7 +4,7 @@
 
 This project is a **Flask-based API Proxy** designed to securely **relay API requests** while **hiding API credentials** from users. It enables a **test client** to send API queries via the proxy, ensuring credentials remain **server-side only, meaning, ONLY on the api-proxy buildpack, NOT the client-test, it NEVER has credentials**.
 
-The **proxy application** intercepts API calls and appends the required API key **before forwarding requests** to the external API (e.g., `SAM.gov`). It is deployed using **Cloud Foundry** on **Cloud.gov**.
+The **proxy application** intercepts API calls and appends the required API key **before forwarding requests** to the external API (e.g., `NASA.gov`). It is deployed using **Cloud Foundry** on **Cloud.gov**.
 
 This project was tested with **NASA.gov's** open **APOD API**, as well as **SAM.gov's** API.
 
@@ -15,7 +15,7 @@ This project was tested with **NASA.gov's** open **APOD API**, as well as **SAM.
 ```
 ┌───────────────┐        ┌───────────────┐        ┌─────────────────┐
 │ Test Client   │  --->  │ API Proxy     │  --->  │ External API    │
-│ (requests)    │        │ (forwards)    │        │ (e.g., SAM.gov) │
+│ (requests)    │        │ (forwards)    │        │ (e.g., NASA.gov)│
 └───────────────┘        └───────────────┘        └─────────────────┘
 ```
 
@@ -97,21 +97,21 @@ To deploy the API Proxy & Test Client, run:
 
 ```bash
 cf ssh test-client
-curl -v "https://api-proxy.apps.internal:61443/proxy?postedFrom=01/01/2024&postedTo=01/31/2024"
+curl -v "https://api-proxy.apps.internal:61443/proxy"
 ```
 
 This request:
 
 - Routes through `api-proxy.apps.internal`
 - Appends `API_KEY`
-- Sends the request to `SAM.gov`
+- Sends the request to `NASA.gov`
 
 ## 🌎 Environment Variables
 
-| Variable       | Description        | Example Value                                 |
-| -------------- | ------------------ | --------------------------------------------- |
-| `API_ENDPOINT` | The base API URL   | `https://api.sam.gov/opportunities/v2/search` |
-| `API_KEY`      | The secret API key | `your-secret-key`                             |
+| Variable       | Description        | Example Value                         |
+| -------------- | ------------------ | ------------------------------------- |
+| `API_ENDPOINT` | The base API URL   | `https://api.nasa.gov/planetary/apod` |
+| `API_KEY`      | The secret API key | `your-secret-key`                     |
 
 ## Expected Results
 
