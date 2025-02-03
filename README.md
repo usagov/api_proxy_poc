@@ -118,7 +118,7 @@ If empty, export it:
 export API_KEY="your-secret-key"
 ```
 
-### **❌ ❌ Cloud Foundry Org/Space Not Set**
+### **❌ Cloud Foundry Org/Space Not Set**
 
 Run:
 
@@ -128,7 +128,7 @@ cf target
 
 Ensure it matches the expected **org & space**.
 
-### **❌ ❌ Deployment Fails**
+### **❌ Deployment Fails**
 
 Try redeploying:
 
@@ -137,7 +137,7 @@ cf push -f api_proxy_manifest.yml
 cf push -f test_client_manifest.yml
 ```
 
-### **❌ ❌ Proxy Returns 404**
+### **❌ Proxy Returns 404**
 
 - Confirm the request URL is correct.
 - Ensure `api-proxy` is running:
