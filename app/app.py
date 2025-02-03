@@ -1,14 +1,14 @@
 """Flask API Proxy Module.
 
-This module sets up a Flask application that acts as an API proxy,
-handling requests and responses to ensure API credentials remain secure.
+A universal API proxy that securely forwards requests to an external API,
+injecting credentials while preventing client exposure.
 """
 
 import logging
 import os
 
 import requests
-from flask import Flask, jsonify, request
+from flask import Flask, Response, jsonify, request
 
 app = Flask(__name__)
 
@@ -18,51 +18,47 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Load API credentials
-API_ENDPOINT = os.getenv("API_ENDPOINT")
-API_KEY = os.getenv("API_KEY")
+# Load API configuration
+API_ENDPOINT = os.getenv("API_ENDPOINT")  # Base API URL (e.g., https://api.example.com)
+API_KEY = os.getenv("API_KEY")  # API Key for authentication
 
 
-@app.route("/proxy", methods=["GET"])
+@app.route("/proxy", methods=["GET", "POST", "PUT", "DELETE"])
 def proxy_request():
-    """Intercepts and forwards requests to the SAM.gov API while injecting the API key."""
+    """Universal API Proxy that securely forwards requests with API key injection."""
+
     if not API_ENDPOINT or not API_KEY:
         logger.error("Missing API configuration (API_ENDPOINT or API_KEY)")
         return jsonify({"error": "Missing API configuration"}), 500
 
-    # Extract query parameters from the incoming request
+    method = request.method
     params = request.args.to_dict()
+    headers = {"Content-Type": "application/json"}
 
-    # Ensure `postedFrom` and `postedTo` are included
-    if "postedFrom" not in params or "postedTo" not in params:
-        logger.error("Missing required parameters: postedFrom and postedTo")
-        return (
-            jsonify({"error": "Missing required parameters: postedFrom and postedTo"}),
-            400,
-        )
-
-    # Inject the API key
+    # Inject API key into query parameters
     params["api_key"] = API_KEY
 
+    # Handle request body for POST/PUT
+    data = request.get_json() if method in ["POST", "PUT"] else None
+
     logger.info(
-        "Forwarding request to SAM.gov: %s with params %s", API_ENDPOINT, params
+        "Forwarding %s request to %s with params %s", method, API_ENDPOINT, params
     )
 
     try:
-        # Forward the request
-        response = requests.get(API_ENDPOINT, params=params)
-
-        logger.info("SAM.gov response status: %s", response.status_code)
+        response = requests.request(
+            method, API_ENDPOINT, params=params, json=data, headers=headers, timeout=10
+        )
+        logger.info("API response status: %s", response.status_code)
         return jsonify(response.json()), response.status_code
-
     except requests.RequestException as e:
-        logger.error("Failed to contact API: %s", str(e))
+        logger.error("API request failed: %s", str(e))
         return jsonify({"error": "Failed to contact API", "details": str(e)}), 500
 
 
 @app.route("/", methods=["CONNECT"])
 def handle_connect():
-    """Handles CONNECT requests to prevent 'curl' from misinterpreting the API proxy as a forward proxy."""
+    """Handles CONNECT requests to prevent misuse as a forward proxy."""
     logger.warning("Received a CONNECT request. This is not a forward proxy.")
     return Response(
         "CONNECT method is not supported. Use direct HTTPS requests.", status=405
