@@ -1,5 +1,5 @@
 applications:
-  - name: api-proxy
+  - name: api-proxy-develop
     memory: 256M
     instances: 1
     buildpacks:
