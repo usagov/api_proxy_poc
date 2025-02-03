@@ -14,6 +14,7 @@ The **proxy application** intercepts API calls and appends the required API key 
 │ (requests)    │        │ (forwards)    │        │ (e.g., SAM.gov) │
 └───────────────┘        └───────────────┘        └─────────────────┘
 ```
+
 - This project utilizes Cloud.gov Python buildpack and **NOT DOCKER CONTAINERS**.
   - This means there is no need to have a container build step in a deploy script or pipeline, nor do we need a Dockerfile.
   - Version of Python and other libraries in Cloud.gov buildpacks are updated upon restart to ensure we have the most recent version of Python.
@@ -97,7 +98,6 @@ This request:
 | `API_ENDPOINT` | The base API URL   | `https://api.sam.gov/opportunities/v2/search` |
 | `API_KEY`      | The secret API key | `your-secret-key`                             |
 
-
 ## Expected Results
 
 ![image](https://github.com/user-attachments/assets/736e8891-df39-409d-9dcf-273e67818063)
@@ -147,6 +147,7 @@ cf push -f test_client_manifest.yml
 
 ## 📌 Future Enhancements
 
+- [ ] **Convert deploy.sh to CI/CD Pipeline** To deploy in a more modern, supportable way.
 - [ ] **Add authentication** to restrict access to `api-proxy`
 - [ ] **Enable logging aggregation** for API requests
 - [ ] **Support multiple external APIs** dynamically
