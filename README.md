@@ -150,4 +150,3 @@ cf push -f test_client_manifest.yml
 - [ ] **Convert deploy.sh to CI/CD Pipeline** To deploy in a more modern, supportable way.
 - [ ] **Add authentication** to restrict access to `api-proxy`
 - [ ] **Enable logging aggregation** for API requests
-- [ ] **Support multiple external APIs** dynamically
