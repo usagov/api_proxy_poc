@@ -27,7 +27,7 @@ This project was tested with **NASA.gov's** open **APOD API**, as well as **SAM.
 - **Test Client**: Python buildpack with nothing running in it but a forever sleep to keep it up.
   - Makes API requests but **lacks direct API credentials**.
 - **API Proxy**: Relays requests, checks formatting, and appends `API_KEY`, and forwards them securely.
-- **External API**: The **actual API** (e.g., `SAM.gov`) that receives requests.
+- **External API**: The **actual API** (e.g., `NASA.gov`) that receives requests.
   - Code will have to be added to properly handle different APIs that may have different formatting requirements but the code in place can be used as a good template.
 
 ## 🚀 Deployment
@@ -95,6 +95,8 @@ To deploy the API Proxy & Test Client, run:
 
 ### **1️⃣ Make a request from the Test Client**
 
+To test NASA.gov:
+
 ```bash
 cf ssh test-client
 curl -v "https://api-proxy.apps.internal:61443/proxy"
@@ -105,6 +107,19 @@ This request:
 - Routes through `api-proxy.apps.internal`
 - Appends `API_KEY`
 - Sends the request to `NASA.gov`
+
+To test SAM.gov:
+
+```bash
+cf ssh test-client
+curl -v "https://api-proxy.apps.internal:61443/proxy?postedFrom=01/01/2024&postedTo=01/31/2024"
+```
+
+This request:
+
+- Routes through `api-proxy.apps.internal`
+- Appends `API_KEY`
+- Sends the request to `SAM.gov`
 
 ## 🌎 Environment Variables
 
