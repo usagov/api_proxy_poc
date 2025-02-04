@@ -5,8 +5,8 @@ applications:
     buildpacks:
       - python_buildpack
     routes:
-    - route: api-proxy.apps.internal
-    - route: api-proxy.app.cloud.gov
+    - route: ${ORG}-${SPACE_NODOT}-api-proxy.apps.internal
+    - route: ${ORG}-${SPACE_NODOT}-api-proxy.app.cloud.gov
     env:
       API_ENDPOINT: ${API_ENDPOINT}
       API_KEY: ${API_KEY}
